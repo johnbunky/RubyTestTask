@@ -1,0 +1,7 @@
+reqiure 'selenium-webdriver'
+
+browser = Seleinium::Webdriver.for:chrome
+#browser = Seleinium::Webdriver.for:firefox
+
+browser.get "http://upwork.com" 
+browser.quit  
