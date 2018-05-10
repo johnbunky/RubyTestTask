@@ -11,7 +11,7 @@ main_page = MainPage.new(browser)
 browser.manage.delete_all_cookies
 
 # go to www.upwork.com 
-main_page.goto; sleep 7
+main_page.goto; sleep 5
 
 # focus onto find freelancers
 main_page.magnifying_glass
