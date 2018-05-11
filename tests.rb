@@ -1,17 +1,20 @@
 require 'selenium-webdriver'
 require_relative 'pages.rb'
 
-keyword = 'keyword'
+keyword = 'selenium'
+
 
 # run chrome browser
 browser = Selenium::WebDriver.for:chrome
+#wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 main_page = MainPage.new(browser)
+result_page = ResultPage.new(browser)
 
 # clear browser cookies
 browser.manage.delete_all_cookies
 
 # go to www.upwork.com 
-main_page.goto; sleep 7
+main_page.goto; sleep 10
 
 # focus onto find freelancers
 main_page.magnifying_glass
@@ -20,5 +23,7 @@ main_page.onto_freelancers
 # enter keyword
 main_page.search_box = keyword
 main_page.enter
-sleep 5
+
+result_page.some_thing
+
 browser.quit 
