@@ -1,8 +1,7 @@
 require 'selenium-webdriver'
 require_relative 'pages.rb'
 
-keyword = 'selenium'
-
+keyword = 'Selenium'
 
 # run chrome browser
 browser = Selenium::WebDriver.for:chrome
@@ -24,6 +23,6 @@ main_page.onto_freelancers
 main_page.search_box = keyword
 main_page.enter
 
-result_page.some_thing
+result_page.get_results(keyword)
 
 browser.quit 

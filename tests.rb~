@@ -1,13 +1,11 @@
 require 'selenium-webdriver'
 require_relative 'pages.rb'
 
-keyword = 'selenium'
-
+keyword = 'Selenium'
 
 # run chrome browser
 browser = Selenium::WebDriver.for:chrome
-wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-#browser.manage.timeouts.implicit_wait = 10
+#wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 main_page = MainPage.new(browser)
 result_page = ResultPage.new(browser)
 
@@ -25,6 +23,6 @@ main_page.onto_freelancers
 main_page.search_box = keyword
 main_page.enter
 
-result_page.some_thing
+result_page.some_thing(keyword)
 
 browser.quit 
