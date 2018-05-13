@@ -5,7 +5,7 @@ keyword = 'Selenium'
 
 # run chrome browser
 browser = Selenium::WebDriver.for:chrome
-#wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+# wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 main_page = MainPage.new(browser)
 result_page = ResultPage.new(browser)
 
@@ -23,6 +23,10 @@ main_page.onto_freelancers
 main_page.search_box = keyword
 main_page.enter
 
-result_page.some_thing(keyword)
+# get results and stdout freelancers with keyword
+result_page.get_results(keyword)
 
+#choose randome profile
+result_page.random_profile
+sleep 3
 browser.quit 

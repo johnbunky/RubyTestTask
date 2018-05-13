@@ -2,9 +2,6 @@ require 'page-object'
 class MainPage
   include PageObject
 
-  result_array = []
-  keyword_exist = false
-
   page_url('http://upwork.com')
 
   text_field(:search_box, id: 'q')
@@ -23,48 +20,62 @@ class MainPage
 
 end
 
-class ResultPage        # do refactor !!!!!!!
+class ResultPage       
   include PageObject
 
   def get_results(keyword)
-
+  @profiles = nil
   result_array = []
-
-      elements = browser.find_elements(:css, '.air-card-hover')
-      elements.each { |element| 
-               title = element
-               .find_element(:css, '.m-0.freelancer-tile-title.ellipsis').text
-               overview = element.find_element(:css, '.p-0-left.m-0').text
+      # get web elements (profiles) collection 
+      @profiles = browser.find_elements(:css, '.air-card-hover')
+      # web elements (profiles) loop
+      @profiles.each { |profile| 
+               # get text of title and overview
+               title = profile
+               .find_element(:css, 'h4.m-0.freelancer-tile-title').text
+               overview = profile.find_element(:css, '.p-0-left.m-0').text
                
-               elements = element.find_elements(:css, '.o-tag-skill')
-               skills_array = Hash.new()
+                @keyword_exist = false
+
+               # get web elements (skills) collection
+               skills = profile.find_elements(:css, '.o-tag-skill')
+               # create hash of skills
+               skills_hash = Hash.new()
                temp = 0
-               elements.each { |element| 
+               # web elements (skills) loop
+               skills.each { |element| 
+                       # get text of skill
                        skill = element.text
-                       skills_array[temp] = skill
+                       # add skill to hash
+                       skills_hash[temp] = skill
                        temp = temp + 1
-
-                       if skill.include? keyword
-                          keyword_exist = true
-                       end
+               # check if keyword exist in skill       
+               if (skill.include? keyword) && !@keyword_exist 
+                   @keyword_exist = true
+               end 
                 }
-       hash = { :title => title, :overview => overview, :skills => skills_array }
+       # add title, overview and hash of skills to hash
+       hash = { :title => title, :overview => overview, :skills => skills_hash }
        result_array.push(hash)
+       # check if keyword exist in title      
+       if (title.include? keyword) && !@keyword_exist 
+           @keyword_exist = true
+       end 
+       # check if keyword exist in overview       
+       if (overview.include? keyword) && !@keyword_exist 
+           @keyword_exist = true
+       end 
 
-       if title.include? keyword
-          keyword_exist = true
+       if @keyword_exist
+            puts ' keyword exists '
+       else
+            puts ' keyword does not exist '
        end
-
-       if overview.include? keyword
-          keyword_exist = true
-       end
-
-       if keyword_exist
-          puts ' keyword exist '
-       end
-
        }
-       # puts result_array[2][:skills][0]
+  end
+  def random_profile
+       number = @profiles.length
+       @profiles[rand number].click
   end
 end
 
