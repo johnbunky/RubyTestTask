@@ -67,9 +67,9 @@ class ResultPage
        end 
 
        if @keyword_exist
-            puts ' keyword exists '
+            puts '   keyword exists'
        else
-            puts ' keyword does not exist '
+            puts '   keyword does not exist'
        end
        }
   end
