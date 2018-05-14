@@ -49,19 +49,19 @@ class ResultPage
                        # add skill to hash
                        skills_hash[temp] = skill
                        temp = temp + 1
-               # check if keyword exist in skill       
+               # check if keyword exists in skill       
                if (skill.include? keyword) && !@keyword_exist 
                    @keyword_exist = true
                end 
                 }
-       # add title, overview and hash of skills to hash
+       # add the title, overview and hash of skills to hash
        hash = { :title => title, :overview => overview, :skills => skills_hash }
        result_array.push(hash)
-       # check if keyword exist in title      
+       # check if keyword exists in title      
        if (title.include? keyword) && !@keyword_exist 
            @keyword_exist = true
        end 
-       # check if keyword exist in overview       
+       # check if keyword exists in overview       
        if (overview.include? keyword) && !@keyword_exist 
            @keyword_exist = true
        end 
